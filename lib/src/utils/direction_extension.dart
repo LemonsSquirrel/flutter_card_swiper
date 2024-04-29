@@ -6,7 +6,6 @@ extension DirectionExtension on CardSwiperDirection {
         CardSwiperDirection.left ||
         CardSwiperDirection.right =>
           Axis.horizontal,
-        CardSwiperDirection.top || CardSwiperDirection.bottom => Axis.vertical,
         CardSwiperDirection.none => throw Exception('Direction is none'),
       };
 }
