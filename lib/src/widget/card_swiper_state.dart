@@ -8,7 +8,6 @@ class _CardSwiperState<T extends Widget> extends State<CardSwiper>
   SwipeType _swipeType = SwipeType.none;
   CardSwiperDirection _detectedDirection = CardSwiperDirection.none;
   CardSwiperDirection _detectedHorizontalDirection = CardSwiperDirection.none;
-  CardSwiperDirection _detectedVerticalDirection = CardSwiperDirection.none;
   bool _tappedOnTop = false;
 
   final _undoableIndex = Undoable<int?>(null);
@@ -48,18 +47,14 @@ class _CardSwiperState<T extends Widget> extends State<CardSwiper>
   void onSwipeDirectionChanged(CardSwiperDirection direction) {
     switch (direction) {
       case CardSwiperDirection.none:
-        _detectedVerticalDirection = direction;
         _detectedHorizontalDirection = direction;
       case CardSwiperDirection.right:
       case CardSwiperDirection.left:
         _detectedHorizontalDirection = direction;
-      case CardSwiperDirection.top:
-      case CardSwiperDirection.bottom:
-        _detectedVerticalDirection = direction;
     }
 
     widget.onSwipeDirectionChange
-        ?.call(_detectedHorizontalDirection, _detectedVerticalDirection);
+        ?.call(_detectedHorizontalDirection);
   }
 
   @override
@@ -229,11 +224,6 @@ class _CardSwiperState<T extends Widget> extends State<CardSwiper>
           ? CardSwiperDirection.left
           : CardSwiperDirection.right;
     }
-    if (_cardAnimation.top.abs() > widget.threshold) {
-      return _cardAnimation.top.isNegative
-          ? CardSwiperDirection.top
-          : CardSwiperDirection.bottom;
-    }
     return CardSwiperDirection.none;
   }
 
@@ -241,8 +231,6 @@ class _CardSwiperState<T extends Widget> extends State<CardSwiper>
     return switch (direction) {
       CardSwiperDirection.left => widget.allowedSwipeDirection.left,
       CardSwiperDirection.right => widget.allowedSwipeDirection.right,
-      CardSwiperDirection.top => widget.allowedSwipeDirection.up,
-      CardSwiperDirection.bottom => widget.allowedSwipeDirection.down,
       _ => false
     };
   }
