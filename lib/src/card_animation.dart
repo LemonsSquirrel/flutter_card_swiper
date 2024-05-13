@@ -76,25 +76,6 @@ class CardAnimation {
       }
     }
 
-    if (allowedSwipeDirection.up && allowedSwipeDirection.down) {
-      if (top > 0) {
-        onSwipeDirectionChanged?.call(CardSwiperDirection.bottom);
-      } else if (top < 0) {
-        onSwipeDirectionChanged?.call(CardSwiperDirection.top);
-      }
-      top += dy;
-    } else if (allowedSwipeDirection.up) {
-      if (top <= 0) {
-        onSwipeDirectionChanged?.call(CardSwiperDirection.top);
-        top += dy;
-      }
-    } else if (allowedSwipeDirection.down) {
-      if (top >= 0) {
-        onSwipeDirectionChanged?.call(CardSwiperDirection.bottom);
-        top += dy;
-      }
-    }
-
     total = left + top;
     updateAngle(inverseAngle);
     updateScale();
@@ -139,8 +120,6 @@ class CardAnimation {
     return switch (direction) {
       CardSwiperDirection.left => animateHorizontally(context, false),
       CardSwiperDirection.right => animateHorizontally(context, true),
-      CardSwiperDirection.top => animateVertically(context, false),
-      CardSwiperDirection.bottom => animateVertically(context, true),
       CardSwiperDirection.none => null,
     };
   }
