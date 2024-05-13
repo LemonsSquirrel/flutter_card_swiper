@@ -192,8 +192,6 @@ class CardAnimation {
     return switch (direction) {
       CardSwiperDirection.left => animateUndoHorizontally(context, false),
       CardSwiperDirection.right => animateUndoHorizontally(context, true),
-      CardSwiperDirection.top => animateUndoVertically(context, false),
-      CardSwiperDirection.bottom => animateUndoVertically(context, true),
       _ => null
     };
   }
